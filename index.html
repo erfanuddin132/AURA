@@ -1,358 +1,211 @@
 <!DOCTYPE html>
-<html lang="bn" class="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA - হ্যান্ডমেড ও উডেন স্টুডিও</title>
+    <title>Aura Handmade Studio - Natural & Wooden Decor</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            50: '#f5f3ff',
-                            100: '#ede9fe',
-                            500: '#8b5cf6',
-                            600: '#7c3aed',
-                            700: '#6d28d9',
-                            800: '#5b21b6',
-                            900: '#4c1d95',
+                        nature: {
+                            50: '#f4f7f4',
+                            100: '#e5ede5',
+                            600: '#2e5a36',
+                            700: '#234629',
+                            800: '#1a3520',
                         }
                     }
                 }
             }
         }
     </script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Hind Siliguri', sans-serif; }
-    </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen pb-20 transition-colors duration-300">
+<body class="bg-nature-50 text-gray-800 font-sans antialiased selection:bg-nature-600 selection:text-white">
 
-    <!-- Top Header -->
-    <header class="bg-brand-700 dark:bg-brand-900 text-white sticky top-0 z-40 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <button onclick="toggleDrawer()" class="text-white text-xl focus:outline-none p-1">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div class="flex items-center space-x-2">
-                    <div class="bg-white text-brand-700 rounded-full w-9 h-9 flex items-center justify-center font-bold text-lg shadow">ও</div>
-                    <span class="text-xl font-bold tracking-wide">ওরা <span class="text-xs font-light block -mt-1 opacity-90">হ্যান্ডমেড স্টুডিও</span></span>
-                </div>
+    <!-- Top Announcement Bar -->
+    <div class="bg-nature-800 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium">
+        🌿 Welcome to Aura Handmade Studio | Discover the Beauty of Nature at Your Fingertips
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl font-serif font-bold tracking-wider text-nature-800 uppercase">Aura</span>
+                <span class="text-xs uppercase tracking-widest bg-nature-100 text-nature-700 px-2 py-0.5 rounded font-semibold">Studio</span>
             </div>
-            
-            <div class="flex items-center space-x-3">
-                <a href="tel:01937140686" class="hidden sm:flex items-center bg-brand-800 px-3 py-1.5 rounded-full text-xs font-medium hover:bg-brand-600 transition">
-                    <i class="fa-solid fa-phone mr-1.5"></i> 01937140686
-                </a>
-                <button onclick="toggleDarkMode()" class="text-white bg-brand-800 w-9 h-9 rounded-full flex items-center justify-center hover:bg-brand-600 transition">
-                    <i class="fa-solid fa-moon dark:hidden"></i>
-                    <i class="fa-solid fa-sun hidden dark:inline"></i>
-                </button>
-                <button onclick="toggleAdminMode()" id="adminToggleBtn" class="bg-white text-brand-700 px-3 py-1.5 rounded-md text-xs font-semibold shadow hover:bg-gray-100 transition">
-                    Admin View
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-700">
+                <a href="#" class="hover:text-nature-600 transition">Home</a>
+                <a href="#products" class="hover:text-nature-600 transition">Shop</a>
+                <a href="#features" class="hover:text-nature-600 transition">About</a>
+                <a href="#footer" class="hover:text-nature-600 transition">Contact</a>
+            </nav>
+
+            <!-- Cart Trigger / Action -->
+            <div class="flex items-center space-x-4">
+                <button onclick="openCart()" class="relative bg-nature-100 hover:bg-nature-600 hover:text-white text-nature-800 p-2.5 rounded-full transition shadow-sm">
+                    <i class="fa-solid fa-shopping-bag text-lg"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Slide-out Drawer Menu -->
-    <div id="drawerOverlay" class="fixed inset-0 bg-black/50 z-50 hidden transition-opacity" onclick="toggleDrawer()"></div>
-    <div id="drawerMenu" class="fixed inset-y-0 left-0 w-80 bg-white dark:bg-gray-800 z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col">
-        <div class="p-4 bg-brand-700 text-white flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <div class="bg-white text-brand-700 rounded-full w-8 h-8 flex items-center justify-center font-bold">ও</div>
-                <span class="font-bold text-lg">ওরা ক্রাফট</span>
-            </div>
-            <button onclick="toggleDrawer()" class="text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+    <!-- Hero Section (Astra Plant/Nature Theme Style) -->
+    <section class="relative bg-nature-800 text-white overflow-hidden py-24 sm:py-32">
+        <div class="absolute inset-0 opacity-25 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&q=80&w=1600');"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-xs sm:text-sm uppercase tracking-[0.3em] font-semibold text-nature-100 mb-4">Welcome to Urban Jungle & Craft</h2>
+            <h1 class="text-4xl sm:text-6xl font-serif font-bold tracking-tight mb-6">Discover the Beauty of Nature<br class="hidden sm:inline"> at Your Fingertips</h1>
+            <p class="max-w-2xl mx-auto text-base sm:text-lg text-gray-200 mb-10 font-light">Elevate your living spaces with handcrafted wooden decor, organic indoor planters, and exquisite artisan lighting solutions.</p>
+            <a href="#products" class="inline-block bg-white text-nature-800 font-semibold px-8 py-3.5 rounded-md shadow-lg hover:bg-nature-100 transition transform hover:-translate-y-0.5">Explore Collection</a>
         </div>
-        
-        <div class="p-4 overflow-y-auto flex-1 space-y-1">
-            <a href="#" onclick="filterCategory('সবগুলো'); toggleDrawer();" class="flex items-center py-2.5 px-3 rounded-lg hover:bg-brand-50 dark:hover:bg-gray-700 font-medium">
-                <i class="fa-solid fa-house w-6 text-brand-600"></i> হোম (সবগুলো)
-            </a>
-            <div class="pt-3 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">ক্যাটাগরি সমূহ</div>
-            <div id="drawerCategoryList" class="space-y-1">
-                <!-- Dynamically populated categories -->
-            </div>
-            
-            <div class="border-t dark:border-gray-700 my-4 pt-3 space-y-2">
-                <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">যোগাযোগ</div>
-                <p class="text-sm flex items-center text-gray-600 dark:text-gray-300"><i class="fa-solid fa-phone w-6 text-brand-600"></i> 01937140686</p>
-                <p class="text-sm flex items-center text-gray-600 dark:text-gray-300"><i class="fa-solid fa-envelope w-6 text-brand-600"></i> orahandmade@gmail.com</p>
-                <p class="text-sm flex items-center text-gray-600 dark:text-gray-300"><i class="fa-solid fa-location-dot w-6 text-brand-600"></i> চট্টগ্রাম, বাংলাদেশ</p>
-            </div>
-        </div>
-    </div>
+    </section>
 
-    <!-- Main Content Container -->
-    <main class="max-w-7xl mx-auto px-4 py-6">
-
-        <!-- Hero Promotional Banner -->
-        <div class="relative bg-gradient-to-r from-brand-800 to-brand-600 text-white rounded-2xl p-6 md:p-8 shadow-xl mb-8 overflow-hidden">
-            <div class="relative z-10 max-w-xl">
-                <span class="bg-white/20 text-xs uppercase px-3 py-1 rounded-full font-semibold tracking-wider">হ্যান্ডমেড ও উডেন কালেকশন</span>
-                <h1 class="text-2xl md:text-4xl font-bold mt-2">আপনার ঘর সাজান এক্সক্লুসিভ হস্তশিল্প দিয়ে</h1>
-                <p class="text-sm md:text-base mt-2 text-brand-100">হ্যান্ডমেড লাইট, প্ল্যান্টার, ফুলের স্ট্যান্ড ও বইয়ের আকর্ষণীয় স্ট্যান্ড - সরাসরি WhatsApp এ অর্ডার করুন।</p>
+    <!-- Trust Badges Section -->
+    <section id="features" class="bg-white border-b border-gray-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="flex flex-col items-center p-4">
+                <i class="fa-solid fa-shield-halved text-2xl text-nature-600 mb-2"></i>
+                <h4 class="font-semibold text-sm text-gray-900">Secure Payment</h4>
+                <p class="text-xs text-gray-500">100% secure checkout</p>
             </div>
-            <div class="absolute right-0 bottom-0 opacity-10 text-9xl transform translate-x-6 translate-y-6">
-                <i class="fa-solid fa-couch"></i>
+            <div class="flex flex-col items-center p-4">
+                <i class="fa-solid fa-truck-fast text-2xl text-nature-600 mb-2"></i>
+                <h4 class="font-semibold text-sm text-gray-900">Fast Shipping</h4>
+                <p class="text-xs text-gray-500">Reliable delivery nationwide</p>
+            </div>
+            <div class="flex flex-col items-center p-4">
+                <i class="fa-solid fa-seedling text-2xl text-nature-600 mb-2"></i>
+                <h4 class="font-semibold text-sm text-gray-900">Delivered with Care</h4>
+                <p class="text-xs text-gray-500">Eco-friendly packaging</p>
+            </div>
+            <div class="flex flex-col items-center p-4">
+                <i class="fa-solid fa-headset text-2xl text-nature-600 mb-2"></i>
+                <h4 class="font-semibold text-sm text-gray-900">Dedicated Support</h4>
+                <p class="text-xs text-gray-500">Active customer service</p>
             </div>
         </div>
+    </section>
 
-        <!-- Admin Control Panel (Hidden by default) -->
-        <div id="adminPanel" class="hidden bg-white dark:bg-gray-800 border-2 border-brand-500 rounded-2xl p-6 shadow-lg mb-8">
-            <h2 class="text-lg font-bold text-brand-600 mb-4 flex items-center">
-                <i class="fa-solid fa-gear mr-2"></i> অ্যাডমিন কন্ট্রোল প্যানেল
-            </h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Add Product Form -->
-                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl">
-                    <h3 class="font-semibold text-sm mb-3">নতুন পণ্য বা পোস্ট যুক্ত করুন</h3>
-                    <form id="productForm" onsubmit="handleAddProduct(event)" class="space-y-3">
-                        <input type="text" id="prodTitle" placeholder="পণ্যের নাম" required class="w-full text-sm px-3 py-2 rounded-lg border dark:bg-gray-800 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500">
-                        <select id="prodCategory" required class="w-full text-sm px-3 py-2 rounded-lg border dark:bg-gray-800 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500">
-                            <!-- Populated dynamically -->
-                        </select>
-                        <input type="text" id="prodPrice" placeholder="দাম (যেমন: ৳১২০০)" required class="w-full text-sm px-3 py-2 rounded-lg border dark:bg-gray-800 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500">
-                        <input type="url" id="prodImage" placeholder="ছবির লিংক (Image URL)" required class="w-full text-sm px-3 py-2 rounded-lg border dark:bg-gray-800 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500">
-                        <textarea id="prodDesc" placeholder="পণ্যের সংক্ষিপ্ত বিবরণ..." rows="2" class="w-full text-sm px-3 py-2 rounded-lg border dark:bg-gray-800 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
-                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold py-2 rounded-lg transition shadow">পণ্য পোস্ট করুন</button>
-                    </form>
-                </div>
-
-                <!-- Add/Delete Categories -->
-                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl flex flex-col justify-between">
-                    <div>
-                        <h3 class="font-semibold text-sm mb-3">ক্যাটাগরি ম্যানেজমেন্ট</h3>
-                        <div class="flex space-x-2 mb-3">
-                            <input type="text" id="newCatName" placeholder="নতুন ক্যাটাগরি নাম" class="flex-1 text-sm px-3 py-2 rounded-lg border dark:bg-gray-800 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-brand-500">
-                            <button onclick="handleAddCategory()" class="bg-brand-600 hover:bg-brand-700 text-white text-sm px-4 py-2 rounded-lg transition">যুক্ত করুন</button>
-                        </div>
-                        <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">বিদ্যমান ক্যাটাগরি সমূহ:</div>
-                        <div id="adminCategoryList" class="flex flex-wrap gap-2 max-h-40 overflow-y-auto">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-4">* WhatsApp নম্বর স্বয়ংক্রিয়ভাবে প্রতিটি পণ্যের সাথে <span class="font-bold text-brand-600">01937140686</span> সেট করা থাকবে।</p>
-                </div>
+    <!-- Trending Products Section -->
+    <main id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+            <div>
+                <span class="text-nature-600 font-semibold text-xs uppercase tracking-widest">Handcrafted Selection</span>
+                <h2 class="text-3xl font-serif font-bold text-gray-900 mt-1">Trending Products</h2>
             </div>
-        </div>
-
-        <!-- Featured Categories Showcase (Circular view inspired by reference) -->
-        <div class="mb-8">
-            <h2 class="text-lg font-bold mb-4 flex items-center justify-between">
-                <span>ফিচারড ক্যাটাগরি</span>
-                <span class="text-xs text-brand-600 dark:text-brand-400 font-medium">সবগুলো দেখুন</span>
-            </h2>
-            <div id="circularCategoryContainer" class="flex space-x-4 overflow-x-auto pb-2 scrollbar-none">
-                <!-- Dynamically populated circular categories -->
-            </div>
-        </div>
-
-        <!-- Search & Filter Bar -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-            <div id="categoryChips" class="flex flex-wrap gap-2">
-                <!-- Filter Chips -->
-            </div>
-            <div class="relative w-full md:w-72">
-                <input type="text" id="searchInput" oninput="filterProducts()" placeholder="পণ্য খুঁজুন..." class="w-full text-sm pl-10 pr-4 py-2 rounded-full border bg-white dark:bg-gray-800 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-500 shadow-sm">
-                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400 text-xs"></i>
+            <div class="mt-4 md:mt-0 flex space-x-2 text-sm font-medium">
+                <button onclick="filterCategory('all')" class="category-btn px-4 py-2 rounded-md bg-nature-600 text-white transition">All Items</button>
+                <button onclick="filterCategory('Planters')" class="category-btn px-4 py-2 rounded-md bg-white text-gray-600 hover:bg-gray-100 transition">Planters</button>
+                <button onclick="filterCategory('Wooden Decor')" class="category-btn px-4 py-2 rounded-md bg-white text-gray-600 hover:bg-gray-100 transition">Wooden Decor</button>
             </div>
         </div>
 
         <!-- Product Grid -->
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Dynamically populated products -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Dynamic products will be loaded here -->
         </div>
-
     </main>
 
-    <!-- Mobile Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 inset-x-0 bg-white dark:bg-gray-800 border-t dark:border-gray-700 z-40 shadow-lg flex justify-around items-center py-2 px-4 md:hidden">
-        <button onclick="filterCategory('সবগুলো')" class="flex flex-col items-center text-brand-600 text-xs font-medium">
-            <i class="fa-solid fa-house text-lg mb-0.5"></i> হোম
-        </button>
-        <a href="tel:01937140686" class="flex flex-col items-center text-gray-500 dark:text-gray-400 text-xs font-medium">
-            <i class="fa-solid fa-phone text-lg mb-0.5 text-green-500"></i> কল করুন
-        </a>
-        <a href="https://wa.me/8801937140686" target="_blank" class="flex flex-col items-center text-gray-500 dark:text-gray-400 text-xs font-medium">
-            <i class="fa-brands fa-whatsapp text-lg mb-0.5 text-green-600"></i> WhatsApp
-        </a>
-        <button onclick="toggleAdminMode()" class="flex flex-col items-center text-gray-500 dark:text-gray-400 text-xs font-medium">
-            <i class="fa-solid fa-gear text-lg mb-0.5"></i> অ্যাডমিন
-        </button>
-    </nav>
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <div class="p-6 bg-nature-800 text-white flex items-center justify-between">
+            <h3 class="font-serif font-bold text-lg">Your Shopping Cart</h3>
+            <button onclick="closeCart()" class="text-white hover:text-gray-200 text-xl font-bold">&times;</button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Cart items go here -->
+        </div>
+        <div class="p-6 bg-gray-50 border-t border-gray-200">
+            <div class="flex justify-between font-semibold text-lg mb-4">
+                <span>Total:</span>
+                <span id="cart-total">৳0</span>
+            </div>
+            <button onclick="checkoutWhatsApp()" class="w-full bg-nature-600 hover:bg-nature-700 text-white py-3.5 rounded-md font-medium transition shadow flex items-center justify-center space-x-2">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                <span>Order via WhatsApp</span>
+            </button>
+        </div>
+    </div>
+    <div id="cart-backdrop" onclick="closeCart()" class="fixed inset-0 bg-black/50 z-40 hidden"></div>
 
-    <!-- JavaScript Logic -->
+    <!-- Footer -->
+    <footer id="footer" class="bg-gray-900 text-white py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="font-serif font-bold text-xl uppercase tracking-wider mb-4 text-nature-100">Aura Studio</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Crafting elegance through nature-inspired handmade lights, planters, and wooden decor items for modern aesthetic spaces.</p>
+            </div>
+            <div>
+                <h4 class="font-semibold text-sm uppercase tracking-wider mb-4 text-nature-100">Quick Links</h4>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition">Home Collection</a></li>
+                    <li><a href="#products" class="hover:text-white transition">Trending Items</a></li>
+                    <li><a href="#features" class="hover:text-white transition">Our Quality Standards</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-sm uppercase tracking-wider mb-4 text-nature-100">Contact Us</h4>
+                <p class="text-gray-400 text-sm mb-2"><i class="fa-solid fa-phone mr-2"></i> +880 1937-140686</p>
+                <p class="text-gray-400 text-sm mb-4"><i class="fa-solid fa-envelope mr-2"></i> support@aurastudio.com</p>
+                <div class="flex space-x-4 text-lg">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-gray-800 text-center text-xs text-gray-500">
+            &copy; 2026 Aura Handmade Studio. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Script Logic -->
     <script>
-        // Initial Data Store
-        let categories = ['সবগুলো', 'হ্যান্ডমেড লাইট', 'ফুলের টব ও প্ল্যান্টার', 'ফুলের স্ট্যান্ড', 'বইয়ের স্ট্যান্ড', 'উডেন ডেকোর'];
+        // Sample Initial Products matching Natural / Plant / Wooden Theme
         let products = [
-            {
-                id: 1,
-                title: 'মডার্ন উডেন বুক স্ট্যান্ড',
-                category: 'বইয়ের স্ট্যান্ড',
-                price: '৳ ৮৫০',
-                image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80',
-                desc: 'হাতে তৈরি প্রিমিয়াম কোয়ালিটি কাঠের বুক স্ট্যান্ড, পড়ার টেবিল সাজানোর জন্য চমৎকার।'
-            },
-            {
-                id: 2,
-                title: 'হ্যান্ডমেড উডেন ল্যাম্প (লাইট)',
-                category: 'হ্যান্ডমেড লাইট',
-                price: '৳ ১৪৫০',
-                image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80',
-                desc: 'মনোমুগ্ধকর ওয়ার্ম লাইটযুক্ত হ্যান্ডমেড কাঠের টেবিল ল্যাম্প।'
-            },
-            {
-                id: 3,
-                title: 'টু-টায়ার উডেন প্ল্যান্ট স্ট্যান্ড',
-                category: 'ফুলের স্ট্যান্ড',
-                price: '৳ ১২০০',
-                image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80',
-                desc: 'ইনডোর গাছ রাখার মজবুত ও আকর্ষণীয় কাঠের ফ্লাওয়ার স্ট্যান্ড।'
-            },
-            {
-                id: 4,
-                title: 'টেরাকোটা ও উডেন ফ্লাওয়ার পট',
-                category: 'ফুলের টব ও প্ল্যান্টার',
-                price: '৳ ৬৫০',
-                image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80',
-                desc: 'হাত দিয়ে নিখুঁত নকশা করা ফুলের টব।'
-            }
+            { id: 1, name: "Minimalist Ceramic Planter", category: "Planters", price: 1250, image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&q=80&w=600" },
+            { id: 2, name: "Handcrafted Wooden Desk Lamp", category: "Wooden Decor", price: 2800, image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&q=80&w=600" },
+            { id: 3, name: "Natural Terracotta Plant Pot", category: "Planters", price: 950, image: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=600" },
+            { id: 4, name: "Carved Wooden Wall Organizer", category: "Wooden Decor", price: 3400, image: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&q=80&w=600" },
+            { id: 5, name: "Botanical Concrete Planter Set", category: "Planters", price: 1600, image: "https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&q=80&w=600" },
+            { id: 6, name: "Rustic Wooden Floating Shelf", category: "Wooden Decor", price: 2200, image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&q=80&w=600" }
         ];
 
-        let currentCategory = 'সবগুলো';
-        let isAdminMode = false;
-        const whatsappNumber = '8801937140686';
+        let cart = [];
+        let currentFilter = 'all';
 
-        // Load data from LocalStorage if available
-        if(localStorage.getItem('aura_categories')) {
-            categories = JSON.parse(localStorage.getItem('aura_categories'));
-        }
-        if(localStorage.getItem('aura_products')) {
-            products = JSON.parse(localStorage.getItem('aura_products'));
-        }
-
-        function saveData() {
-            localStorage.setItem('aura_categories', JSON.stringify(categories));
-            localStorage.setItem('aura_products', JSON.stringify(products));
-        }
-
-        // Initialize App UI
-        function initApp() {
-            renderCategories();
-            renderProducts();
-            checkDeepLink();
-        }
-
-        function renderCategories() {
-            // Dropdown in form
-            const select = document.getElementById('prodCategory');
-            select.innerHTML = '';
-            categories.filter(c => c !== 'সবগুলো').forEach(cat => {
-                select.innerHTML += `<option value="${cat}">${cat}</option>`;
-            });
-
-            // Chips
-            const chips = document.getElementById('categoryChips');
-            chips.innerHTML = '';
-            categories.forEach(cat => {
-                const active = currentCategory === cat;
-                chips.innerHTML += `
-                    <button onclick="filterCategory('${cat}')" class="px-4 py-1.5 rounded-full text-xs font-medium transition ${active ? 'bg-brand-600 text-white shadow' : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700'}">
-                        ${cat}
-                    </button>
-                `;
-            });
-
-            // Drawer List
-            const drawerList = document.getElementById('drawerCategoryList');
-            drawerList.innerHTML = '';
-            categories.forEach(cat => {
-                drawerList.innerHTML += `
-                    <a href="#" onclick="filterCategory('${cat}'); toggleDrawer();" class="flex items-center py-2 px-3 rounded-lg text-sm text-gray-600 dark:text-gray-300 hover:bg-brand-50 dark:hover:bg-gray-700">
-                        <i class="fa-solid fa-angle-right mr-2.5 text-xs text-brand-500"></i> ${cat}
-                    </a>
-                `;
-            });
-
-            // Circular Showcase
-            const circularContainer = document.getElementById('circularCategoryContainer');
-            circularContainer.innerHTML = '';
-            categories.filter(c => c !== 'সবগুলো').forEach(cat => {
-                circularContainer.innerHTML += `
-                    <div onclick="filterCategory('${cat}')" class="flex flex-col items-center flex-shrink-0 cursor-pointer group">
-                        <div class="w-16 h-16 rounded-full bg-brand-100 dark:bg-gray-800 border-2 border-brand-500 flex items-center justify-center text-brand-600 dark:text-brand-400 group-hover:scale-105 transition shadow-sm">
-                            <i class="fa-solid fa-box-open text-xl"></i>
-                        </div>
-                        <span class="text-xs font-medium mt-1.5 text-center max-w-[80px] truncate">${cat}</span>
-                    </div>
-                `;
-            });
-
-            // Admin Category List
-            const adminCatList = document.getElementById('adminCategoryList');
-            adminCatList.innerHTML = '';
-            categories.filter(c => c !== 'সবগুলো').forEach(cat => {
-                adminCatList.innerHTML += `
-                    <span class="bg-brand-50 dark:bg-gray-800 border border-brand-200 dark:border-gray-600 text-xs px-2.5 py-1 rounded-full flex items-center">
-                        ${cat}
-                        <button onclick="deleteCategory('${cat}')" class="ml-1.5 text-red-500 hover:text-red-700"><i class="fa-solid fa-xmark"></i></button>
-                    </span>
-                `;
-            });
-        }
-
-        function renderProducts() {
-            const grid = document.getElementById('productGrid');
-            const searchVal = document.getElementById('searchInput').value.toLowerCase();
-            
-            const filtered = products.filter(p => {
-                const matchCat = currentCategory === 'সবগুলো' || p.category === currentCategory;
-                const matchSearch = p.title.toLowerCase().includes(searchVal) || p.desc.toLowerCase().includes(searchVal);
-                return matchCat && matchSearch;
-            });
-
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('product-grid');
             grid.innerHTML = '';
-            if(filtered.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-400 text-sm">কোনো পণ্য পাওয়া যায়নি</div>`;
-                return;
-            }
+            
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
 
             filtered.forEach(p => {
-                const waMessage = encodeURIComponent(`হ্যালো ওরা (Aura), আমি এই পণ্যটি অর্ডার করতে চাই:\n\n*নাম:* ${p.title}\n*দাম:* ${p.price}\n*লিংক:* ${window.location.origin}${window.location.pathname}#item-${p.id}`);
-                
                 grid.innerHTML += `
-                    <div id="item-${p.id}" class="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden border dark:border-gray-700 flex flex-col justify-between transition hover:shadow-xl">
-                        <div>
-                            <div class="relative h-48 overflow-hidden bg-gray-100 dark:bg-gray-700">
-                                <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                                <span class="absolute top-2.5 left-2.5 bg-brand-600 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full shadow">${p.category}</span>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-bold text-base mb-1">${p.title}</h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">${p.desc}</p>
-                                <div class="text-brand-600 dark:text-brand-400 font-extrabold text-lg">${p.price}</div>
-                            </div>
+                    <div class="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition group">
+                        <div class="relative overflow-hidden aspect-square bg-gray-100">
+                            <img src="${p.image}" alt="${p.name}" class="object-cover w-full h-full group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-nature-800 text-[11px] font-semibold px-2.5 py-1 rounded-md uppercase tracking-wider">${p.category}</span>
                         </div>
-                        <div class="p-4 pt-0 flex items-center space-x-2">
-                            <a href="https://wa.me/${whatsappNumber}?text=${waMessage}" target="_blank" class="flex-1 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold py-2.5 px-3 rounded-xl text-center transition flex items-center justify-center shadow">
-                                <i class="fa-brands fa-whatsapp text-sm mr-1.5"></i> WhatsApp অর্ডার
-                            </a>
-                            <button onclick="copyProductLink(${p.id})" title="লিংক কপি করুন" class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 text-gray-600 dark:text-gray-300 p-2.5 rounded-xl transition">
-                                <i class="fa-solid fa-share-nodes text-xs"></i>
-                            </button>
-                            ${isAdminMode ? `<button onclick="deleteProduct(${p.id})" class="bg-red-50 hover:bg-red-100 text-red-600 p-2.5 rounded-xl transition"><i class="fa-solid fa-trash text-xs"></i></button>` : ''}
+                        <div class="p-6">
+                            <h3 class="font-serif font-semibold text-lg text-gray-900 mb-1">${p.name}</h3>
+                            <div class="flex items-center justify-between mt-4">
+                                <span class="text-lg font-bold text-nature-700">৳${p.price}</span>
+                                <button onclick="addToCart(${p.id})" class="bg-nature-50 hover:bg-nature-600 text-nature-700 hover:text-white px-4 py-2 rounded-md text-sm font-semibold transition border border-nature-200 hover:border-transparent flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-plus text-xs"></i>
+                                    <span>Add to Cart</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -360,127 +213,87 @@
         }
 
         function filterCategory(cat) {
-            currentCategory = cat;
-            renderCategories();
-            renderProducts();
-        }
-
-        function filterProducts() {
-            renderProducts();
-        }
-
-        function toggleAdminMode() {
-            isAdminMode = !isAdminMode;
-            const panel = document.getElementById('adminPanel');
-            const btn = document.getElementById('adminToggleBtn');
-            if(isAdminMode) {
-                panel.classList.remove('hidden');
-                btn.textContent = 'Customer View';
-                btn.classList.add('bg-brand-600', 'text-white');
-            } else {
-                panel.classList.add('hidden');
-                btn.textContent = 'Admin View';
-                btn.classList.remove('bg-brand-600', 'text-white');
-            }
-            renderProducts();
-        }
-
-        function toggleDrawer() {
-            const drawer = document.getElementById('drawerMenu');
-            const overlay = document.getElementById('drawerOverlay');
-            drawer.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('hidden');
-        }
-
-        function toggleDarkMode() {
-            const html = document.documentElement;
-            if(html.classList.contains('light')) {
-                html.classList.remove('light');
-                html.classList.add('dark');
-                localStorage.setItem('aura_theme', 'dark');
-            } else {
-                html.classList.remove('dark');
-                html.classList.add('light');
-                localStorage.setItem('aura_theme', 'light');
-            }
-        }
-
-        // Handle Add Product
-        function handleAddProduct(e) {
-            e.preventDefault();
-            const newProduct = {
-                id: Date.now(),
-                title: document.getElementById('prodTitle').value,
-                category: document.getElementById('prodCategory').value,
-                price: document.getElementById('prodPrice').value,
-                image: document.getElementById('prodImage').value,
-                desc: document.getElementById('prodDesc').value
-            };
-            products.unshift(newProduct);
-            saveData();
-            document.getElementById('productForm').reset();
-            renderProducts();
-            alert('সফলভাবে নতুন পণ্য যুক্ত করা হয়েছে!');
-        }
-
-        // Handle Add Category
-        function handleAddCategory() {
-            const name = document.getElementById('newCatName').value.trim();
-            if(name && !categories.includes(name)) {
-                categories.push(name);
-                saveData();
-                document.getElementById('newCatName').value = '';
-                renderCategories();
-            }
-        }
-
-        // Delete Category
-        function deleteCategory(cat) {
-            if(confirm(`"${cat}" ক্যাটাগরি ডিলিট করতে চান?`)) {
-                categories = categories.filter(c => c !== cat);
-                saveData();
-                renderCategories();
-            }
-        }
-
-        // Delete Product
-        function deleteProduct(id) {
-            if(confirm('পণ্যটি ডিলিট করতে চান?')) {
-                products = products.filter(p => p.id !== id);
-                saveData();
-                renderProducts();
-            }
-        }
-
-        // Copy Share Link
-        function copyProductLink(id) {
-            const link = `${window.location.origin}${window.location.pathname}#item-${id}`;
-            navigator.clipboard.writeText(link);
-            alert('পণ্যের লিংক কপি করা হয়েছে! ফেসবুতে পোস্টের সাথে এটি পেস্ট করতে পারেন।');
-        }
-
-        // Handle Deep Linking from Facebook shares
-        function checkDeepLink() {
-            if(window.location.hash) {
-                const target = document.querySelector(window.location.hash);
-                if(target) {
-                    setTimeout(() => {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                        target.classList.add('ring-4', 'ring-brand-500');
-                        setTimeout(() => target.classList.remove('ring-4', 'ring-brand-500'), 2500);
-                    }, 500);
+            currentFilter = cat;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if(btn.textContent.includes(cat) || (cat==='all' && btn.textContent.includes('All'))) {
+                    btn.className = "category-btn px-4 py-2 rounded-md bg-nature-600 text-white transition";
+                } else {
+                    btn.className = "category-btn px-4 py-2 rounded-md bg-white text-gray-600 hover:bg-gray-100 transition";
                 }
+            });
+            renderProducts(cat);
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const item = cart.find(i => i.id === id);
+            if(item) {
+                item.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
             }
+            updateCartUI();
+            openCart();
         }
 
-        // Initialize Theme from localStorage
-        if(localStorage.getItem('aura_theme') === 'dark') {
-            document.documentElement.classList.remove('light');
-            document.documentElement.classList.add('dark');
+        function updateCartUI() {
+            const count = cart.reduce((sum, i) => sum + i.qty, 0);
+            document.getElementById('cart-count').innerText = count;
+
+            const itemsContainer = document.getElementById('cart-items');
+            itemsContainer.innerHTML = '';
+            
+            let total = 0;
+            cart.forEach(i => {
+                total += i.price * i.qty;
+                itemsContainer.innerHTML += `
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                        <div class="flex items-center space-x-3">
+                            <img src="${i.image}" class="w-14 h-14 object-cover rounded-md">
+                            <div>
+                                <h4 class="font-semibold text-sm text-gray-800">${i.name}</h4>
+                                <p class="text-xs text-gray-500">৳${i.price} × ${i.qty}</p>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${i.id})" class="text-red-500 hover:text-red-700 p-2"><i class="fa-solid fa-trash-can text-sm"></i></button>
+                    </div>
+                `;
+            });
+            document.getElementById('cart-total').innerText = `৳${total}`;
         }
 
-        // Run Init
-        initApp();
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateCartUI();
+        }
+
+        function openCart() {
+            document.getElementById('cart-sidebar').classList.remove('translate-x-full');
+            document.getElementById('cart-backdrop').classList.remove('hidden');
+        }
+
+        function closeCart() {
+            document.getElementById('cart-sidebar').classList.add('translate-x-full');
+            document.getElementById('cart-backdrop').classList.add('hidden');
+        }
+
+        function checkoutWhatsApp() {
+            if(cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+            let msg = "Hello Aura Studio, I would like to order the following items:%0A";
+            let total = 0;
+            cart.forEach(i => {
+                msg += `- ${i.name} (${i.qty}x) - ৳${i.price * i.qty}%0A`;
+                total += i.price * i.qty;
+            });
+            msg += `%0ATotal Amount: ৳${total}`;
+            window.open(`https://wa.me/8801937140686?text=${msg}`, '_blank');
+        }
+
+        // Initial load
+        renderProducts();
     </script>
 </body>
 </html>
